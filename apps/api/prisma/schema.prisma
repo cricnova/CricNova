@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Team {
+  id        String   @id @default(cuid())
+  name      String
+  players   Player[]
+  createdAt DateTime @default(now())
+}
+
+model Player {
+  id        String   @id @default(cuid())
+  name      String
+  team      Team     @relation(fields: [teamId], references: [id])
+  teamId    String
+  createdAt DateTime @default(now())
+}
+
+model Tournament {
+  id        String   @id @default(cuid())
+  name      String
+  location  String?
+  logoUrl   String?
+  matches   Match[]
+  createdAt DateTime @default(now())
+}
+
+model Match {
+  id            String       @id @default(cuid())
+  team1Name     String
+  team2Name     String
+  team1Players  String?
+  team2Players  String?
+  overs         Int
+  ballsPerOver  Int          @default(6)
+  venue         String?
+  ballType      String       @default("leather")
+  matchType     String       @default("league")
+  tossWonBy     String?
+  tossDecision  String?
+  matchDateTime DateTime?
+  status        String       @default("upcoming")
+  currentOver   Int          @default(0)
+  currentBall   Int          @default(0)
+  tournament    Tournament?  @relation(fields: [tournamentId], references: [id])
+  tournamentId  String?
+  balls         Ball[]
+  createdAt     DateTime     @default(now())
+}
+
+model Ball {
+  id          String   @id @default(cuid())
+  match       Match    @relation(fields: [matchId], references: [id])
+  matchId     String
+  innings     Int
+  overNumber  Int
+  ballNumber  Int
+  batsmanName String
+  bowlerName  String
+  runs        Int      @default(0)
+  extraType   String?
+  isWicket    Boolean  @default(false)
+  wicketType  String?
+  createdAt   DateTime @default(now())
+}

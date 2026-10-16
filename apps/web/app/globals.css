@@ -1,0 +1,31 @@
+/* Root layout styling */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+/* Background Logo Watermark Effect */
+.main-container {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+}
+
+.main-container::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60vw; /* Logo size relative to viewport */
+  height: 60vw;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 0C22.3858 0 0 22.3858 0 50C0 77.6142 22.3858 100 50 100C77.6142 100 100 77.6142 100 50C100 22.3858 77.6142 0 50 0ZM50 90C27.9086 90 10 72.0914 10 50C10 27.9086 27.9086 10 50 10C72.0914 10 90 27.9086 90 50C90 72.0914 72.0914 90 50 90Z' fill='%23e0e7ff' opacity='0.3'/%3E%3Cpath d='M35 35C26.7157 35 20 41.7157 20 50C20 58.2843 26.7157 65 35 65C36.3807 65 37.7157 64.8294 38.9819 64.5023L41.0181 67.4977C39.0919 68.8218 36.5974 69.6078 33.8908 69.895C21.5231 71.1667 10.456 61.7586 11.5276 49.5909C12.5361 38.1566 23.3436 29.8444 34.7946 30.7857C37.5087 31.0065 40.0087 31.7879 41.9417 33.1027L39.903 36.0998C38.6284 35.6772 37.2497 35.4277 35 35Z' fill='%23bfdbfe' opacity='0.5'/%3E%3Cpath d='M73.1294 46.9027L68.9508 43.7714L64.7723 47.0176L65.7049 58.4765L73.1294 46.9027Z' fill='%232563eb' opacity='0.4'/%3E%3C/svg%3E"); /* Simplified CricNova logo SVG */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: -1; /* Places logo behind content */
+  opacity: 0.5; /* Fades the watermark */
+  pointer-events: none;
+}
